@@ -18,4 +18,3 @@ Ce projet est destiné à valider les connaissances en DevOps des élèves de 3�
 ![Code Size](https://img.shields.io/github/languages/code-size/NoWa-FTN/DEVOPS-CC1-NoaFontaine)
 ![Build Status](https://github.com/NoWa-FTN/DEVOPS-CC1-NoaFontaine/actions/workflows/main.yml/badge.svg) 
 
-![CI - Lint & Tests](https://github.com/NoWa-FTN/DEVOPS-CC1-NoaFontaine.git/actions/workflows/main.yml/badge.svg)
