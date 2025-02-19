@@ -20,4 +20,6 @@ Ce projet est destiné à valider les connaissances en DevOps des élèves de 3�
 
 ## Deployment
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b844c201-70c0-4a2c-ba5a-848e17ce33fd/deploy-status)](https://app.netlify.com/sites/imaginative-taffy-6893ba/deploys)
+
 https://imaginative-taffy-6893ba.netlify.app/
