@@ -50,11 +50,18 @@ jobs:
       # Étape 9: Extraire les résultats des tests et les insérer dans le README.md
       - name: Update README with test results
         run: |
-          # Adapter la commande jq en fonction de la structure du JSON
-          TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Ajuste selon la structure du JSON
+          # Vérifier si le fichier result.json est vide ou non
+          if [ -s result.json ]; then
+            # Si le fichier JSON n'est pas vide, extraire les résultats
+            TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Ajuste selon la structure du JSON
 
-          # Débogage : afficher les résultats extraits
-          echo "Test results: $TEST_RESULTS"
+            # Débogage : afficher les résultats extraits
+            echo "Test results: $TEST_RESULTS"
+          else
+            # Si le fichier est vide, définir une valeur par défaut ou afficher un message d'erreur
+            TEST_RESULTS="Aucun résultat de test disponible."
+            echo "Le fichier result.json est vide."
+          fi
 
           # Remplacer <!-- TEST RESULTS --> dans README.md par les résultats extraits
           sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md  
