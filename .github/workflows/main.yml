@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       # Étape 2: Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18  # Version Node.js
