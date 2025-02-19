@@ -43,13 +43,26 @@ jobs:
       - name: Run tests and generate JSON report
         run: npm test -- --reporter json > result.json  # Exécute les tests et enregistre les résultats dans result.json
 
-      # Étape 8: Extraire les résultats des tests et les insérer dans le README.md
+      # Étape 8: Afficher le contenu du fichier JSON pour débogage
+      - name: Display JSON content
+        run: cat result.json
+
+      # Étape 9: Extraire les résultats des tests et les insérer dans le README.md
       - name: Update README with test results
         run: |
+          # Si la structure du fichier JSON est correcte, utiliser cette ligne pour extraire les résultats des tests
           TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Extrait les titres des tests depuis le fichier JSON
-          sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md  # Remplace <!-- TEST RESULTS --> dans README.md par les résultats
+          
+          # Si la structure du fichier est différente, ajustez la commande jq en fonction du contenu de result.json
+          # Par exemple, si les tests sont sous une autre clé : 
+          # TEST_RESULTS=$(cat result.json | jq '.tests.testSuite1 | map(.name) | join(", ")')
+          
+          echo "Test results: $TEST_RESULTS"  # Affiche les résultats des tests pour débogage
+          
+          # Remplace <!-- TEST RESULTS --> dans README.md par les résultats
+          sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md  
 
-      # Étape 9: Commit et push des modifications du README
+      # Étape 10: Commit et push des modifications du README
       - name: Commit and push changes to README
         run: |
           git config user.name "github-actions"
