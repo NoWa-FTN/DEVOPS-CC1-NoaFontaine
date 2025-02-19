@@ -12,7 +12,12 @@ export default [
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: { ...globals.browser, vitest: true },
+      globals: {
+        ...globals.browser,
+        vitest: true, // Assurez-vous que vitest est bien déclaré
+        test: true,   // Déclare explicitement `test`
+        expect: true, // Déclare explicitement `expect`
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -28,6 +33,11 @@ export default [
       'testing-library': testingLibrary,
     },
     rules: {
+      'no-undef': ['error', {
+        'typeof': true,
+        'test': true,    // Déclare explicitement test
+        'expect': true,  // Déclare explicitement expect
+      }],    
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
@@ -41,7 +51,7 @@ export default [
       'vitest/no-focused-tests': 'error',
       'vitest/no-identical-title': 'error',
       'vitest/prefer-to-have-length': 'warn',
-      'vitest/prefer-expect-assertions': 'warn',
+      'vitest/prefer-expect-assertions': 'off',  // Désactive le warning ici
       'testing-library/no-debugging-utils': 'warn',
       'testing-library/no-dom-import': ['error', 'react'],
     },
