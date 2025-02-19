@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      # Étape 0: Vérifier la configuration ESLint utilisée
-      - name: Show ESLint config
-        run: cat eslint.config.js
-
       # Étape 1: Checkout du code source
       - name: Checkout repository
         uses: actions/checkout@v3
