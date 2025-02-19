@@ -41,7 +41,7 @@ jobs:
 
       # Étape 7: Run tests et générer un rapport au format JSON
       - name: Run tests and generate JSON report
-        run: npm test -- --reporter json > result.json  # Exécute les tests et enregistre les résultats dans result.json
+        run: npm test -- --json --outputFile=result.json  # Assure-toi d'utiliser le bon reporter pour générer un fichier JSON
 
       # Étape 8: Afficher le contenu du fichier JSON pour débogage
       - name: Display JSON content
@@ -63,8 +63,13 @@ jobs:
             echo "Le fichier result.json est vide."
           fi
 
-          # Remplacer <!-- TEST RESULTS --> dans README.md par les résultats extraits
-          sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md  
+          # Vérifier que le fichier README.md contient la section pour insérer les résultats
+          if grep -q "<!-- TEST RESULTS -->" README.md; then
+            # Remplacer <!-- TEST RESULTS --> dans README.md par les résultats extraits
+            sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md
+          else
+            echo "La section <!-- TEST RESULTS --> n'a pas été trouvée dans le README.md"
+          fi
 
       # Étape 10: Commit et push des modifications du README
       - name: Commit and push changes to README
