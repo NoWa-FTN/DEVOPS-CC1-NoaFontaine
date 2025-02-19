@@ -39,43 +39,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      # Étape 7: Run tests et générer un rapport au format JSON
-      - name: Run tests and generate JSON report
-        run: npm test -- --json --outputFile=result.json  # Assure-toi d'utiliser le bon reporter pour générer un fichier JSON
-
-      # Étape 8: Afficher le contenu du fichier JSON pour débogage
-      - name: Display JSON content
-        run: cat result.json
-
-      # Étape 9: Extraire les résultats des tests et les insérer dans le README.md
-      - name: Update README with test results
-        run: |
-          # Vérifier si le fichier result.json est vide ou non
-          if [ -s result.json ]; then
-            # Si le fichier JSON n'est pas vide, extraire les résultats
-            TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Ajuste selon la structure du JSON
-
-            # Débogage : afficher les résultats extraits
-            echo "Test results: $TEST_RESULTS"
-          else
-            # Si le fichier est vide, définir une valeur par défaut ou afficher un message d'erreur
-            TEST_RESULTS="Aucun résultat de test disponible."
-            echo "Le fichier result.json est vide."
-          fi
-
-          # Vérifier que le fichier README.md contient la section pour insérer les résultats
-          if grep -q "<!-- TEST RESULTS -->" README.md; then
-            # Remplacer <!-- TEST RESULTS --> dans README.md par les résultats extraits
-            sed -i "s|<!-- TEST RESULTS -->|Résultats des tests: $TEST_RESULTS|" README.md
-          else
-            echo "La section <!-- TEST RESULTS --> n'a pas été trouvée dans le README.md"
-          fi
-
-      # Étape 10: Commit et push des modifications du README
-      - name: Commit and push changes to README
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add README.md
-          git commit -m "Mettre à jour README avec les résultats des tests"
-          git push
+      # Étape 7: Run tests
+      - name: Run tests
+        run: npm test
