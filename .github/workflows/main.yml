@@ -51,7 +51,7 @@ jobs:
       - name: Update README with test results
         run: |
           # Adapter la commande jq en fonction de la structure du JSON
-          TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Assure-toi que c'est la bonne structure
+          TEST_RESULTS=$(cat result.json | jq '.results | map(.title) | join(", ")')  # Ajuste selon la structure du JSON
 
           # Débogage : afficher les résultats extraits
           echo "Test results: $TEST_RESULTS"
