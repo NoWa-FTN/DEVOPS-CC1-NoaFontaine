@@ -1,0 +1,49 @@
+name: CI - Lint & Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Étape 0: Vérifier la configuration ESLint utilisée
+      - name: Show ESLint config
+        run: cat eslint.config.js
+
+      # Étape 1: Checkout du code source
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Étape 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Version Node.js
+
+      # Étape 3: Afficher la version npm (utile pour débogage)
+      - name: Show npm version
+        run: npm -v
+
+      # Étape 4: Installer les dépendances
+      - name: Install dependencies (force clean install)
+        run: npm ci
+
+      # Étape 5: S'assurer que 'eslint-plugin-vitest' et 'eslint-plugin-testing-library' sont installés
+      - name: Install eslint plugins
+        run: npm install eslint-plugin-vitest eslint-plugin-testing-library --save-dev
+
+      # Étape 6: Run ESLint
+      - name: Run ESLint
+        run: npm run lint
+
+      # Étape 7: Run tests
+      - name: Run tests
+        run: npm test
