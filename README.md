@@ -12,4 +12,4 @@ Ce projet est destiné à valider les connaissances en DevOps des élèves de 3�
 ## Test Results
 
 
-![CI - Lint & Tests](https://github.com/NoWa-FTN/DEVOPS-CC1-NoaFontaine.git/actions/workflows/ci-lint-tests.yml/badge.svg)
+![CI - Lint & Tests](https://github.com/NoWa-FTN/DEVOPS-CC1-NoaFontaine.git/actions/workflows/main.yml/badge.svg)
